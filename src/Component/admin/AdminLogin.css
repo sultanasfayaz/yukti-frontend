@@ -1,0 +1,65 @@
+/* Container styling */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input fields */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+/* Focus effect */
+.login-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Hover effect */
+.login-container button:hover {
+  background: #0056b3;
+}
+
+/* Disabled button */
+.login-container button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Error message */
+.login-container p {
+  margin-top: 10px;
+  font-size: 14px;
+}

@@ -1,0 +1,133 @@
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --gradientColor: linear-gradient(to right, hsl(189, 85%, 43%),);
+
+}
+
+.header{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: whitesmoke;
+    width: 100%;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(2, 15, 29, 0.904);
+
+    .logo{
+        width: 150px;
+        height: auto;
+        padding: 20px;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+        display: flex;
+        font-weight: 600;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+
+        .icon{
+            font-size: 25px;
+            color:#3498db;
+            transform: translateY(5px);
+        }
+
+        .icons {
+            width: 20px;   /* Adjust width as needed */
+            height: 20px;  /* Adjust height to maintain aspect ratio */
+            cursor: pointer;
+        } 
+    }
+    
+    .icon1 {
+        width: 60px;    /* You can reduce this if it's still large */
+        height: 60px;
+        object-fit: contain;
+        cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+        .navBar{
+            position: absolute;
+            background: white;  
+            height: max-content;
+            width: 80%;
+            border-radius: 1rem;
+            top: -500rem;
+            left: 50%;
+            padding: 1rem;
+            transform: translate(-50%);
+            z-index: 2000;
+            box-shadow: 0 2px 4px rgba(2, 15, 29, 0.904);
+            transition: .5s ease-in-out;
+            
+
+            .navLists{
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
+                margin: auto;
+                padding: .5rem 0;
+
+                .navItem{
+                    padding: .5rem 0;
+
+                    .navLink{
+                        color: black;
+                        font-size:.9rem;
+                        font-weight: 600;
+                        &:hover{
+                            color:#3498db;
+                        }
+                        
+                    }
+                }
+                .btn{
+                    margin-top: 1rem;
+
+                    a{
+                        font-weight: 600;
+                        color: white;
+
+                    }
+                }
+            }
+
+            
+            }
+        }
+        .activeNavbar{
+            top: 7rem;
+        }
+    }
+
+    .closeNavbar{
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        width: 30px;               /* Container width */
+        height: 30px;              /* Container height */
+        background-color: white;   /* Optional: add a background */
+        border-radius: 50%;        /* Makes the container circular */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 2001;
+        .closeNavbar:hover {
+            background-color: #f0f0f0;
+        }
+    
+    .toggleNavbar{
+        .icon{
+            font-size: 25px;
+            color:#3498db;
+        }
+        &:hover.icon{
+            color: violet;
+            
+        }
+    }
+}

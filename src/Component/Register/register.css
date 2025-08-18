@@ -1,0 +1,192 @@
+.register-page {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #3498db;
+}
+.payment-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #3498db;
+}
+
+.fees {
+  text-align: center;
+  color:#78c3da;
+}
+.bank {
+  text-align: center;
+  color:#54a3bb;
+}
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.register-form input,
+.register-form select {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.register-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-form button:hover {
+  background-color: #2980b9;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.8rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.success-msg {
+  text-align: center;
+  color: green;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 500;
+}
+
+.colored-input {
+  border: 2px solid #4CAF50;
+  background-color: #E8F5E9;
+  padding: 5px;
+  border-radius: 4px;
+  outline: none;
+}
+.colored-input:focus {
+  border-color: #2E7D32;
+  background-color: #C8E6C9;
+}
+
+/* 🔹 Payment Form Container */
+.payment-form {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 🔹 Heading */
+.payment-form h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.6rem;
+}
+
+/* 🔹 Labels */
+.payment-form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* 🔹 Input Fields */
+.payment-form input,
+.payment-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: 0.2s;
+}
+
+.payment-form input:focus,
+.payment-form select:focus {
+  border-color: #4CAF50;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* 🔹 Buttons */
+.payment-form button {
+  padding: 10px 16px;
+  margin-top: 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.payment-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.payment-form button[type="button"] {
+  background-color: #aaa;
+  color: white;
+}
+
+.payment-form button:hover {
+  opacity: 0.9;
+}
+
+/* 🔹 Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

@@ -1,0 +1,62 @@
+.about {
+  padding: 4rem 1rem;
+  background-image: url('../../Assets/background/blue4.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.aboutContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.vtuLogo {
+  width: 60px;
+  height: auto;
+}
+
+.aboutContent h1 {
+  font-size: 2rem;
+  /*color: white; */
+  background: linear-gradient(90deg, #ff00ff, #021934, rgb(169, 201, 96), rgb(204, 78, 99), rgb(231, 102, 199), rgb(138, 62, 62)); /* Blue gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* For other browsers */
+  background-clip: text;
+  color: transparent;
+}
+
+.aboutContent p {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.gradient-border {
+  display: inline-block;
+  padding: 4px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, white, #add8e6); /* white to light blue */
+}
+
+.gradient-border h1 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 10px 24px;
+  background-color: #000000; /* or transparent if on light background */
+  color: white;
+  border-radius: 8px;
+}
