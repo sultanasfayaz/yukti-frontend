@@ -8,14 +8,15 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const [active, setActive] = useState('navBar');
   const navigate = useNavigate();
+  const token = localStorage.getItem('adminToken');
 
   const showNav = () => setActive('navBar activeNavbar');
   const removeNavbar = () => setActive('navBar');
-  const token = localStorage.getItem('adminToken');
-
+  
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     navigate('/admin'); // redirect to login
+    removeNavbar();
   };
 
   return (
@@ -34,15 +35,7 @@ const Navbar = () => {
             <li className="navItem"><Link to="/about" className="navLink">About</Link></li>
             <li className="navItem"><Link to="/main" className="navLink">Event</Link></li>
             <li className="navItem"><Link to="/gallery" className="navLink">Gallery</Link></li>
-            {/* ✅ Show Admin Links */}
-            {!token ? (
-              <li className="navItem"><Link to="/admin" className="navLink">Admin</Link></li>
-            ) : (
-              <>
-                <li className="navItem"><Link to="/admin/dashboard" className="navLink">Dashboard</Link></li>
-                <li className="navItem"><button onClick={handleLogout} className="btn">Logout</button></li>
-              </>
-            )}
+            
             <li className="navItem">
               <Link to="/register" className="btn">Register Now</Link>
             </li>

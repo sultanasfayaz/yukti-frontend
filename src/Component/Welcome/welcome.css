@@ -1,0 +1,79 @@
+.welcome-section {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  background: url("https://images.unsplash.com/photo-1520975698519-59c39e05d6a6") 
+              no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-overlay {
+  background: rgba(0, 0, 0, 0.6); /* dark overlay for readability */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-content {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.welcome-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-content h1 span {
+  background: linear-gradient(90deg, #ff2d95, #6536ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.welcome-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: #ff2d95;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #e62584;
+}
+
+.btn-secondary {
+  background: transparent;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: #333;
+}

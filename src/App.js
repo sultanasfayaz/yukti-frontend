@@ -3,6 +3,7 @@ import './app.css';
 
 import Footer from './Component/Footer/Footer';
 import Home from './Component/Home/Home';
+import Welcome from './Component/Welcome/welcome';
 import Main from './Component/Main/Main';
 import Navbar from './Component/Navbar/Navbar';
 import Updates from './Component/Updates/Updates';
@@ -24,6 +25,9 @@ const App = () => {
       <div className="pageContent">
         <Updates />
         <Routes>
+          {/* ✅ Default landing page */}
+          <Route path="/" element={<Welcome />} />   
+          
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/main" element={<Main />} />

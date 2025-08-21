@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './register.css';
 
-// ✅ Validation patterns
+// ✅ Validation regex
 const nameRegex = /^[A-Za-z\s]+$/;
-const regexPatterns = {
-  usn: /^[1-9][A-Z]{2}\d{2}[A-Z]{2}\d{3}$/, // e.g., 1AB23CD456
-  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  phone: /^[6-9]\d{9}$/
-};
+const usnRegex = /^[1-9][A-Z]{2}\d{2}[A-Z]{2}\d{3}$/; // e.g., 1AB23CD456
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRegex = /^[6-9]\d{9}$/;
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +31,7 @@ const Register = () => {
     paymentMethod: ''
   });
 
-  // ✅ Member limits per event
+  // ✅ Group event member limits
   const memberLimits = {
     skit: { min: 5, max: 8 },
     mime: { min: 6, max: 8 },
@@ -50,44 +48,44 @@ const Register = () => {
   const isGroupEvent = Object.keys(memberLimits).includes(formData.event);
   const currentLimit = memberLimits[formData.event] || {};
 
-  // ✅ Handle member input change
+  // ✅ Handle member input
   const handleMemberChange = (index, field, value) => {
-    const updatedMembers = [...members];
-    updatedMembers[index][field] = value;
-    setMembers(updatedMembers);
+    const updated = [...members];
+    updated[index][field] = value;
+    setMembers(updated);
   };
 
-  // ✅ Add new member (only if under max limit)
   const addMemberField = () => {
     if (currentLimit.max && members.length >= currentLimit.max) return;
     setMembers([...members, { name: '', usn: '' }]);
   };
 
-  // ✅ Remove member field
   const removeMemberField = (index) => {
-    const updated = members.filter((_, i) => i !== index);
-    setMembers(updated);
+    setMembers(members.filter((_, i) => i !== index));
   };
 
+  // ✅ Validate form
   const validateForm = () => {
-    let newErrors = {};
+    const newErrors = {};
+
+    if (!formData.event) newErrors.event = 'Please select an event';
 
     if (isGroupEvent) {
       if (!formData.groupName.trim()) {
         newErrors.groupName = 'Group name is required';
       } else if (!nameRegex.test(formData.groupName)) {
-        newErrors.groupName = 'Group name should contain only letters and spaces';
+        newErrors.groupName = 'Group name should contain only letters';
       }
     } else {
       if (!formData.name.trim()) {
         newErrors.name = 'Name is required';
       } else if (!nameRegex.test(formData.name)) {
-        newErrors.name = 'Name should contain only letters and spaces';
+        newErrors.name = 'Name should contain only letters';
       }
 
       if (!formData.USN.trim()) {
         newErrors.USN = 'USN is required';
-      } else if (!regexPatterns.usn.test(formData.USN)) {
+      } else if (!usnRegex.test(formData.USN)) {
         newErrors.USN = 'Invalid USN format';
       }
     }
@@ -95,19 +93,20 @@ const Register = () => {
     if (!formData.college.trim()) newErrors.college = 'College name is required';
     if (!formData.department) newErrors.department = 'Please select a department';
     if (!formData.year) newErrors.year = 'Please select year';
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!regexPatterns.email.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Invalid email';
     }
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
-    } else if (!regexPatterns.phone.test(formData.phone)) {
+    } else if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = 'Invalid phone number';
     }
-    if (!formData.event) newErrors.event = 'Please select an event';
 
-    // ✅ Validate members if group event
+    // ✅ Validate group members
     if (isGroupEvent) {
       if (members.length < currentLimit.min || members.length > currentLimit.max) {
         newErrors.membersCount = `This event requires ${currentLimit.min} to ${currentLimit.max} members.`;
@@ -117,10 +116,10 @@ const Register = () => {
           newErrors[`member_${i}`] = `Member ${i + 1}: Name and USN are required`;
         } else {
           if (!nameRegex.test(m.name)) {
-            newErrors[`member_${i}_name`] = `Member ${i + 1}: Name should contain only letters and spaces`;
+            newErrors[`member_${i}_name`] = `Member ${i + 1}: Invalid name`;
           }
-          if (!regexPatterns.usn.test(m.usn)) {
-            newErrors[`member_${i}_usn`] = `Member ${i + 1}: Invalid USN format`;
+          if (!usnRegex.test(m.usn)) {
+            newErrors[`member_${i}_usn`] = `Member ${i + 1}: Invalid USN`;
           }
         }
       });
@@ -130,38 +129,14 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // ✅ Step navigation
   const handleNext = (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    setShowPayment(true);
+    if (validateForm()) setShowPayment(true);
   };
 
   const handlePaymentChange = (e) => {
     setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
-  };
-
-  const handlePaymentReset = () => {
-    setPaymentData({ transactionId: '', amount: '', paymentMethod: '' });
-  };
-
-  const handleFinalSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const payload = {
-        ...formData,
-        name: isGroupEvent ? formData.groupName : formData.name, // ✅ ensure correct name field
-        members,
-        payment: paymentData
-      };
-      const response = await axios.post('/api/register', payload);
-      alert(response.data.message);
-      resetAll();
-    } catch (err) {
-      alert(err.response?.data?.error || 'Submission failed. Try again.');
-    } finally {
-      setLoading(false);
-    }
   };
 
   const resetAll = () => {
@@ -182,14 +157,47 @@ const Register = () => {
     setShowPayment(false);
   };
 
+  // ✅ Final submission
+  const handleFinalSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const payload = {
+        ...formData,
+        name: isGroupEvent ? formData.groupName : formData.name,
+        members,
+        payment: paymentData
+      };
+
+      const res = await axios.post(
+        'https://yukti-backend-foko.onrender.com/api/register',
+        payload
+      );
+      
+      const { message, uniqueId, emailSent } = res.data;
+
+    if (emailSent) {
+      alert(`${message}\n\n✅ Your Unique ID: ${uniqueId}\n📧 Confirmation email has been sent.`);
+    } else {
+      alert(`${message}\n\n✅ Your Unique ID: ${uniqueId}\n⚠️ Email could not be sent, please note down your ID.`);
+    }
+
+      resetAll();
+    } catch (err) {
+      alert(err.response?.data?.error || 'Submission failed. Try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="register-page">
       {!showPayment ? (
         <form onSubmit={handleNext} className="register-form">
           <h2>Event Registration</h2>
           <hr />
-          <p className="fees"><b>Solo Event - 150/- (Per-Event)</b></p>
-          <p className="fees"><b>Group Events - 600/- (Per-Event)</b></p>
+          <p className="fees"><b>Solo Event - ₹150</b></p>
+          <p className="fees"><b>Group Events - ₹600</b></p>
 
           {/* Event */}
           <label>Event</label>
@@ -261,6 +269,7 @@ const Register = () => {
             </>
           )}
 
+          {/* Common fields */}
           <label>College</label>
           <input
             type="text"
@@ -349,16 +358,15 @@ const Register = () => {
             </>
           )}
 
-          {/* NEXT BUTTON */}
           <button type="submit">Next</button>
         </form>
       ) : (
         <form onSubmit={handleFinalSubmit} className="payment-form">
           <h2>Payment Details</h2>
-          <p className="fees"><b>Solo Event - 150/- (Per-Event)</b></p>
-          <p className="fees"><b><u>Group Events - 600/- (Per-Event)</u></b></p>
-          <p className="bank">Bank account number:</p>
-          <p className="bank">IFSC code:</p>
+          <p className="fees"><b>Solo Event - ₹150</b></p>
+          <p className="fees"><b>Group Events - ₹600</b></p>
+          <p className="bank">Bank account number: <b>XXXX-XXXX-XXXX</b></p>
+          <p className="bank">IFSC code: <b>XXXX0001234</b></p>
 
           <label>Transaction ID</label>
           <input
@@ -391,7 +399,7 @@ const Register = () => {
           <button type="submit" disabled={loading}>
             {loading ? 'Submitting...' : 'Submit'}
           </button>
-          <button type="button" onClick={handlePaymentReset}>Reset</button>
+          <button type="button" onClick={resetAll}>Reset</button>
           <button type="button" onClick={() => setShowPayment(false)}>Back</button>
         </form>
       )}
